@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ImageBackground } from 'react-native';
+import {
+    View, Text, StyleSheet, Dimensions, ImageBackground,
+    TouchableOpacity
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import fit from '../../../../media/temp/fit.jpg';
 import little from '../../../../media/temp/little.jpg';
@@ -12,6 +15,10 @@ class Category extends Component {
         super(props);
         this.state = {};
     }
+    gotoListProduct() {
+        const { navigate } = this.props;
+        navigate('ListProduct');
+    }
     render() {
         const { wrapper, textStyle, imageStyle, catetitle, BoxTitle } = styles;
         return (
@@ -23,16 +30,21 @@ class Category extends Component {
                 </View>
                 <View style={{ flex: 4, justifyContent: 'flex-end' }}>
                     <Swiper showsPagination width={imageWidth} height={imageHeight}>
-
-                        <ImageBackground source={fit} style={imageStyle} >
-                            <Text style={catetitle}> Maxi Dress </Text>
-                        </ImageBackground>
-                        <ImageBackground source={little} style={imageStyle} >
-                            <Text style={catetitle}> Maxi Dress </Text>
-                        </ImageBackground>
-                        <ImageBackground source={maxi} style={imageStyle} >
-                            <Text style={catetitle}> Maxi Dress </Text>
-                        </ImageBackground>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+                            <ImageBackground source={fit} style={imageStyle} >
+                                <Text style={catetitle}> Maxi Dress </Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+                            <ImageBackground source={little} style={imageStyle}>
+                                <Text style={catetitle}> Maxi Dress </Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)}>
+                            <ImageBackground source={maxi} style={imageStyle} >
+                                <Text style={catetitle}> Maxi Dress </Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
                     </Swiper>
                 </View>
             </View >

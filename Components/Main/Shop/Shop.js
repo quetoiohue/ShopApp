@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     Dimensions,
-    TouchableOpacity,
     StyleSheet,
     Image,
 } from 'react-native';
@@ -25,8 +23,8 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: "home"
-        }
+            selectedTab: 'home'
+        };
     }
     openMenu() {
         const { open } = this.props;
@@ -34,6 +32,7 @@ class Shop extends Component {
     }
     render() {
         const { icstyle } = styles;
+      //  const { navigate } = this.props.navigation;
         return (
             <View style={{ flex: 1 }}>
                 <Header onOpen={this.openMenu.bind(this)} />
@@ -44,7 +43,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'home' })}
                         renderIcon={() => <Image source={ic_home} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_homes} style={icstyle} />}
-                        selectedTitleStyle={{ color: "orange", fontFamily: 'Avenir' }}
+                        selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
                         <Home />
                     </TabNavigator.Item>
@@ -56,9 +55,9 @@ class Shop extends Component {
                         renderIcon={() => <Image source={ic_cart} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_carts} style={icstyle} />}
                         badgeText="1"
-                        selectedTitleStyle={{ color: "orange", fontFamily: 'Avenir' }}
+                        selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: "green" }}></View>
+                        <View style={{ flex: 1, backgroundColor: 'green' }} />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -67,9 +66,9 @@ class Shop extends Component {
                         renderIcon={() => <Image source={ic_contact} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_contacts} style={icstyle} />}
                         onPress={() => this.setState({ selectedTab: 'Contact' })}
-                        selectedTitleStyle={{ color: "orange", fontFamily: 'Avenir' }}
+                        selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: "blue" }}></View>
+                        <View style={{ flex: 1, backgroundColor: 'blue' }} />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -78,9 +77,9 @@ class Shop extends Component {
                         renderIcon={() => <Image source={ic_search} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_searchs} style={icstyle} />}
                         onPress={() => this.setState({ selectedTab: 'Search' })}
-                        selectedTitleStyle={{ color: "orange", fontFamily: 'Avenir' }}
+                        selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: "gray" }}></View>
+                        <View style={{ flex: 1, backgroundColor: 'gray' }} />
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>
@@ -88,7 +87,7 @@ class Shop extends Component {
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     icstyle: {
         width: 25,
         height: 25,

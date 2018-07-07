@@ -15,11 +15,12 @@ import Menu from './Components/Main/Menu';
 import Authentication from './Components/Authentication/Authentication';
  import OrderHistory from './Components/OrderHistory/OrderHistory';
  import Changeinfo from './Components/Changeinfo/Changeinfo';
-
+import HomeView from './Components/Main/Shop/Home/HomeView';
+import Home from './Components/Main/Shop/Home/Home';
 
 export default class App extends Component {
   
-  render()  {
+  render() {
     const RootStack = createStackNavigator(
       {
         Main: {
@@ -44,7 +45,7 @@ export default class App extends Component {
         initialRouteName: 'Main',
       }
     );
-    return <RootStack />;
+  return <RootStack />;
   }
 }
 AppRegistry.registerComponent('ShopApp', () => App);

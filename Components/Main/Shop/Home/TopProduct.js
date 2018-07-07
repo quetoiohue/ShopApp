@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, Text, Image, StyleSheet, Dimensions,
+    View, Text, Image, StyleSheet, Dimensions, TouchableOpacity,
 } from 'react-native';
 import sp1 from '../../../../media/temp/sp1.jpeg';
 import sp2 from '../../../../media/temp/sp2.jpeg';
@@ -22,7 +22,7 @@ class TopProduct extends Component {
                     <Text style={titlestyle}> TOP PRODUCT </Text>
                 </View>
                 <View style={body}>
-                <View style={productcontainer}>
+                <TouchableOpacity style={productcontainer}>
                     <Image source={sp1} style={ImageStyle} />
                     <Text style={productname}>
                         Summer Dress
@@ -30,8 +30,8 @@ class TopProduct extends Component {
                     <Text style={productprice}>
                         210$
                     </Text>
-                </View>
-                <View style={productcontainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={productcontainer}>
                     <Image source={sp2} style={ImageStyle} />
                     <Text style={productname}>
                         Party Skirt 
@@ -39,9 +39,9 @@ class TopProduct extends Component {
                     <Text style={productprice}>
                         300$
                     </Text>
-                </View>
+                </TouchableOpacity>
                 <View style={{ height: 10, width }} />
-                <View style={productcontainer}>
+                <TouchableOpacity style={productcontainer}>
                     <Image source={sp3} style={ImageStyle} />
                     <Text style={productname}>
                         Floral Print T
@@ -49,8 +49,8 @@ class TopProduct extends Component {
                     <Text style={productprice}>
                         133$
                     </Text>
-                </View>
-                <View style={productcontainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={productcontainer}>
                     <Image source={sp4} style={ImageStyle} />
                     <Text style={productname}>
                     Floral Print S
@@ -58,7 +58,7 @@ class TopProduct extends Component {
                     <Text style={productprice}>
                         200$
                     </Text>
-                </View>
+                </TouchableOpacity>
                 </View>
             </View>
         );

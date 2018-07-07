@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import {
+    View, Text, StyleSheet, Dimensions, Image,
+    TouchableOpacity
+} from 'react-native';
 import banner from '../../../../media/temp/banner.jpg';
 
 const { height, width } = Dimensions.get('window');
@@ -8,6 +11,10 @@ class Collection extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+    gotoProductDetail() {
+        const { navigate } = this.props;
+        navigate('ProductDetail');
     }
     render() {
         const { wrapper, textStyle, imageStyle, BoxTitle } = styles;
@@ -18,9 +25,12 @@ class Collection extends Component {
                         SPRING COLLECTION
                     </Text>
                 </View>
-                <View style={{ flex: 4, justifyContent: 'flex-end' }}>
+                <TouchableOpacity
+                    style={{ flex: 4, justifyContent: 'flex-end' }}
+                    onPress={this.gotoProductDetail.bind(this)}
+                >
                     <Image source={banner} style={imageStyle} />
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -39,7 +49,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 100,
         padding: 10,
-        
+
     },
     BoxTitle: {
         height: 30,
@@ -50,7 +60,7 @@ const styles = StyleSheet.create({
     textStyle: {
         fontSize: 18,
         color: '#AFAEAF',
-       
+
     },
     imageStyle: {
         height: imageHeght,

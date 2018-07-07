@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { 
     StyleSheet, ScrollView,
  } from 'react-native';
-import Collection from '../Home/Collection';
-import Category from '../Home/Category';
-import TopProduct from './TopProduct';
+ import { createStackNavigator } from 'react-navigation';
+import ListProduct from '../ListProduct/ListProduct';
+import ProductDetail from '../ProductDetail/ProductDetail';
+import HomeView from './HomeView';
 
 class Home extends Component {
     constructor(props) {
@@ -12,13 +13,26 @@ class Home extends Component {
         this.state = { };
     }
     render() {
-        const { wrapper } = styles;
+        const RootHome = createStackNavigator({
+            ListProduct: {
+                screen: ListProduct,
+            },
+            ProductDetail: {
+                screen: ProductDetail,
+            },
+            HomeView: {
+                screen: HomeView,
+            
+            },
+        },
+        {
+            headerMode: 'none',
+            initialRouteName: 'HomeView',
+        }
+    );
+        const newLocal = <RootHome {...this.props.navigation} />;
         return (
-             <ScrollView style={wrapper}>
-                 <Collection />
-                 <Category />
-                <TopProduct />
-            </ScrollView>
+             newLocal
         );
     }
 }

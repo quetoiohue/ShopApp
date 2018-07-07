@@ -25,7 +25,6 @@ const { height } = Dimensions.get('window');
         ref={(ref) => this._drawer = ref}
         content={<Menu navigate={navigate} />}
         >
-  
          <Shop open={this.openControlPanel.bind(this)} />
         </Drawer>
      );
