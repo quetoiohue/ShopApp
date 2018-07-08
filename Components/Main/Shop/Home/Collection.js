@@ -13,8 +13,8 @@ class Collection extends Component {
         this.state = {};
     }
     gotoProductDetail() {
-        const { navigate } = this.props;
-        navigate('ProductDetail');
+        const { navigation } = this.props;
+        navigation.navigate('ProductDetail');
     }
     render() {
         const { wrapper, textStyle, imageStyle, BoxTitle } = styles;

@@ -17,6 +17,8 @@ import ic_contact from '../../../media/appIcon/contact0.png';
 import ic_searchs from '../../../media/appIcon/search.png';
 import ic_search from '../../../media/appIcon/search0.png';
 import Home from './Home/Home';
+import Cart from './Cart/Cart';
+import Search from './Search/Search';
 
 const { height } = Dimensions.get('window');
 class Shop extends Component {
@@ -57,7 +59,7 @@ class Shop extends Component {
                         badgeText="1"
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: 'green' }} />
+                        <Cart />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -68,8 +70,8 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'Contact' })}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: 'blue' }} />
-                    </TabNavigator.Item>
+                            <View style={{ flex: 1, backgroundColor: 'pink' }} />   
+                        </TabNavigator.Item>
 
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'Search'}
@@ -79,7 +81,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'Search' })}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: 'gray' }} />
+                        <Search />
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>

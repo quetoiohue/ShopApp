@@ -13,12 +13,12 @@ class HomeView extends Component {
     }
     render() {
         const { wrapper } = styles;
-        const { navigate } = this.props.navigation;
+        const { navigation } = this.props;
         return (
              <ScrollView style={wrapper} >
-                 <Collection navigate={navigate} />
-                 <Category navigate={navigate} />
-                <TopProduct navigate={navigate} />
+                 <Collection navigation = {navigation} />
+                 <Category navigation = {navigation} />
+                <TopProduct navigation = {navigation} />
             </ScrollView>
         );
     }

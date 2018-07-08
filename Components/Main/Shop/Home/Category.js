@@ -16,8 +16,8 @@ class Category extends Component {
         this.state = {};
     }
     gotoListProduct() {
-        const { navigate } = this.props;
-        navigate('ListProduct');
+        const { navigation } = this.props;
+        navigation.navigate('ListProduct');
     }
     render() {
         const { wrapper, textStyle, imageStyle, catetitle, BoxTitle } = styles;

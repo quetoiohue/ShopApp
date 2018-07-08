@@ -10,7 +10,7 @@ class ListProduct extends Component {
         return (
             <TouchableOpacity 
             onPress={this.goback.bind(this)}
-            style={{ flex: 1, backgroundColor: '#7FFFD4' }}
+            style={{ flex: 1, backgroundColor: 'blue' }}
             >
             <Text> GoBack </Text>
             </TouchableOpacity>
