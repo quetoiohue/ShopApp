@@ -29,9 +29,7 @@ class Header extends Component {
                 </View>
                 <TextInput
                     style={TextIP}
-                    // onChangeText={(text) => this.setState({ text })}
-                    // value={this.state.text}
-                    underlineColorAndroid='white'
+                    underlineColorAndroid='transparent'
                     placeholder="what do you want search ?"
                 />
             </View>

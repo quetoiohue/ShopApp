@@ -8,23 +8,23 @@ import profile from '../../media/temp/profile.png';
 export default class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLogin: false };
+    this.state = { isLogin: true };
   }
   gotoAuthentication() {
-    const { navigate } = this.props;
-    navigate('Authentication');
+    const { navigation } = this.props;
+    navigation.navigate('Authentication');
   }
   gotoChangeInfo() {
-    const { navigate } = this.props;
-    navigate('Changeinfo');
+    const { navigation } = this.props;
+    navigation.navigate('Changeinfo');
   }
   gotoOrderHistory() {
-    const { navigate } = this.props;
-    navigate('OrderHistory');
+    const { navigation } = this.props;
+    navigation.navigate('OrderHistory');
   }
   gotoMain() {
-    const { navigate } = this.props;
-    navigate('Main');
+    const { navigation } = this.props;
+    navigation.navigate('Main');
   }
   render() {
     const { container, profiles, btnSignInStyle,
@@ -48,8 +48,10 @@ export default class Menu extends Component {
     );
     const logOutJSX = (
       <View style={loginContainer}>
-        <TouchableOpacity style={btnSignInStyle}
-          onPress={this.gotoAuthentication.bind(this)}>
+        <TouchableOpacity
+style={btnSignInStyle}
+          onPress={this.gotoAuthentication.bind(this)}
+        >
           <Text style={btnTextSignIn}> Sign In </Text>
         </TouchableOpacity>
       </View>

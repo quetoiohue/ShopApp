@@ -25,33 +25,49 @@ class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'home'
+            selectedTab: 'home',
+            types: [],
         };
     }
     openMenu() {
         const { open } = this.props;
         open();
     }
-    render() {
+    componentDidMount() {
+        fetch('http://192.168.1.8:8888/app/') //eslint-disable-line
+        .then(res => res.json())
+        .then(resJSON => {
+            const { type } = resJSON;
+            this.setState({
+                types: type,
+            });
+        });
+        
+    }
+    render() {  
+        
         const { icstyle } = styles;
-      //  const { navigate } = this.props.navigation;
+        const { selectedTab } = this.state;
+        const { types } = this.state;
+        console.log('Shop*************************');
+        console.log(types);
         return (
             <View style={{ flex: 1 }}>
                 <Header onOpen={this.openMenu.bind(this)} />
                 <TabNavigator>
                     <TabNavigator.Item
-                        selected={this.state.selectedTab === 'home'}
+                        selected={selectedTab === 'home'}
                         title="Home"
                         onPress={() => this.setState({ selectedTab: 'home' })}
                         renderIcon={() => <Image source={ic_home} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_homes} style={icstyle} />}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <Home />
+                        <Home types={types} />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Cart'}
+                        selected={selectedTab === 'Cart'}
                         title="Cart"
                         onPress={() => this.setState({ selectedTab: 'Cart' })}
                         renderIcon={() => <Image source={ic_cart} style={icstyle} />}
@@ -63,7 +79,7 @@ class Shop extends Component {
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Contact'}
+                        selected={selectedTab === 'Contact'}
                         title="Contact"
                         renderIcon={() => <Image source={ic_contact} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_contacts} style={icstyle} />}
@@ -74,7 +90,7 @@ class Shop extends Component {
                         </TabNavigator.Item>
 
                     <TabNavigator.Item
-                        selected={this.state.selectedTab === 'Search'}
+                        selected={selectedTab === 'Search'}
                         title="Search"
                         renderIcon={() => <Image source={ic_search} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_searchs} style={icstyle} />}
