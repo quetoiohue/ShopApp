@@ -19,9 +19,10 @@ class Category extends Component {
     
     render() {
         const { wrapper, textStyle, imageStyle, catetitle, BoxTitle } = styles;
-        const { types } = this.props;
+        const { screenProps } = this.props;
         console.log('Category*************************');
-        console.log(types);
+        console.log(screenProps.user.types);
+        const { types } = screenProps.user;
         return (
             <View style={wrapper}>
                 <View style={BoxTitle}>
@@ -31,15 +32,14 @@ class Category extends Component {
                 </View>
                 <View style={{ flex: 4, justifyContent: 'flex-end' }}>
                     <Swiper showsPagination width={imageWidth} height={imageHeight}>
-                         {/* { types.map(e => (
+                         { types.map(e => (
                         <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
-                            <ImageBackground source={{ uri: '${url}${e.image}' }} style={imageStyle} >
+                            <ImageBackground source={{ uri: `${url}${e.image}` }} style={imageStyle} >
                                 <Text style={catetitle}> {e.name} </Text>
                             </ImageBackground>
                         </TouchableOpacity>
                         ))
-                        } */}
-                        <Text> ookoko </Text>
+                        }   
                     </Swiper>
                 </View>
             </View >

@@ -20,7 +20,7 @@ class ListProduct extends Component {
         navigation.navigate('ProductDetail');
     }
     render() {
-        const { container, Header, Icback, TextHeader, wrapper,
+        const { container, Icback, TextHeader, wrapper,
             ImaStyle, containerScroll, containDetail, TextName,
             TextPrice, TextPrize } = styles;
         return (
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'lavender',
-        borderWidth: 1,
+    
     },
     containerScroll: {
         margin: 10,

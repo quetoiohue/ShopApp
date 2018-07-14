@@ -27,6 +27,7 @@ class Shop extends Component {
         this.state = {
             selectedTab: 'home',
             types: [],
+            topProducts: [],
         };
     }
     openMenu() {
@@ -35,20 +36,19 @@ class Shop extends Component {
     }
     componentDidMount() {
         fetch('http://192.168.1.8:8888/app/') //eslint-disable-line
-        .then(res => res.json())
-        .then(resJSON => {
-            const { type } = resJSON;
-            this.setState({
-                types: type,
+            .then(res => res.json())
+            .then(resJSON => {
+                const { type, product } = resJSON;
+                this.setState({
+                    types: type,
+                    topProducts: product,
+                });
             });
-        });
-        
     }
-    render() {  
-        
+    render() {
         const { icstyle } = styles;
         const { selectedTab } = this.state;
-        const { types } = this.state;
+        const { types, topProducts } = this.state;
         console.log('Shop*************************');
         console.log(types);
         return (
@@ -63,7 +63,7 @@ class Shop extends Component {
                         renderSelectedIcon={() => <Image source={ic_homes} style={icstyle} />}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <Home types={types} />
+                        <Home types={types} topProducts={topProducts} />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -86,8 +86,8 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'Contact' })}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                            <View style={{ flex: 1, backgroundColor: 'pink' }} />   
-                        </TabNavigator.Item>
+                        <View style={{ flex: 1, backgroundColor: 'pink' }} />
+                    </TabNavigator.Item>
 
                     <TabNavigator.Item
                         selected={selectedTab === 'Search'}

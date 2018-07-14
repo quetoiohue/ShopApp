@@ -9,23 +9,19 @@ import TopProduct from './TopProduct';
 class HomeView extends Component {
     constructor(props) {
         super(props);
-    
         this.state = {
-         // types: props.types,
+        
         };
       }
     
     render() {
         const { wrapper } = styles;
-        const { navigation } = this.props;
-        const { types } = this.props;
-        console.log('HV*************************');
-        console.log(types);
+        const { screenProps, navigation } = this.props;
         return (
              <ScrollView style={wrapper} >
-                 <Collection navigation ={navigation} />
-                 <Category navigation ={navigation} types = { types }/>
-                <TopProduct navigation ={navigation} />
+                 <Collection navigation={navigation} />
+                 <Category navigation={navigation} screenProps={screenProps} />
+                <TopProduct navigation={navigation} screenProps={screenProps} />
             </ScrollView>
         );
     }

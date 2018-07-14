@@ -8,28 +8,21 @@ class Home extends Component {
     
     constructor(props) {
         super(props);
-    
         this.setState = {
-        types: this.state.types,
+      
         };
       }
-    
-    // componentWillReceiveProps(nextProps) {
-    //     // update original states
-    //     this.setState({
-    //       types: nextProps.types,
-    //     });
-    //     console.log('.......Home*************************');
-    //     console.log(this.state.types);
-    // }
     render() {
-        
-        const { navigation } = this.props;
-        const { types } = this.state;
-        console.log('Home*************************');
-        console.log(types);
+        const screenProps = {
+            user: {
+            types: this.props.types,
+            topProducts: this.props.topProducts,
+            },  
+          };
+          const { navigation } = this.props;
+          
         return (
-             <RootHome navigation = {navigation} />
+             <RootHome screenProps={screenProps} navigation={navigation} />
         );
     }
     

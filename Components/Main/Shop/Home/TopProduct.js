@@ -7,58 +7,46 @@ import sp2 from '../../../../media/temp/sp2.jpeg';
 import sp3 from '../../../../media/temp/sp3.jpeg';
 import sp4 from '../../../../media/temp/sp4.jpeg';
 
+const url = 'http://192.168.1.8:8888/app/images/product/';
 class TopProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+    gotoDetail(e) {
+        const { navigation } = this.props;
+        navigation.navigate('ProductDetail', { obj: e });
+    }
+
     render() {
         const { containers, ImageStyle, titlecontainer,
-            productname, productprice, titlestyle, 
-        productcontainer, body } = styles;
+            productname, productprice, titlestyle,
+            productcontainer, body } = styles;
+        const { topProducts } = this.props.screenProps.user;
         return (
             <View style={containers}>
                 <View style={titlecontainer}>
                     <Text style={titlestyle}> TOP PRODUCT </Text>
                 </View>
                 <View style={body}>
-                <TouchableOpacity style={productcontainer}>
-                    <Image source={sp1} style={ImageStyle} />
-                    <Text style={productname}>
-                        Summer Dress
+                    {
+                        topProducts.map(e => (
+                            <TouchableOpacity
+                                style={productcontainer}
+                                onPress={() => {this.props.navigation.navigate('ProductDetail', { product: e });
+                            }}
+                                key={e.id}
+                            >
+                                <Image source={{ uri: `${url}${e.images[0]}` }} style={ImageStyle} />
+                                <Text style={productname}>
+                                    {e.name.toUpperCase()}
+                                </Text>
+                                <Text style={productprice}>
+                                    {e.price}$
                     </Text>
-                    <Text style={productprice}>
-                        210$
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={productcontainer}>
-                    <Image source={sp2} style={ImageStyle} />
-                    <Text style={productname}>
-                        Party Skirt 
-                    </Text>
-                    <Text style={productprice}>
-                        300$
-                    </Text>
-                </TouchableOpacity>
-                <View style={{ height: 10, width }} />
-                <TouchableOpacity style={productcontainer}>
-                    <Image source={sp3} style={ImageStyle} />
-                    <Text style={productname}>
-                        Floral Print T
-                    </Text>
-                    <Text style={productprice}>
-                        133$
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={productcontainer}>
-                    <Image source={sp4} style={ImageStyle} />
-                    <Text style={productname}>
-                    Floral Print S
-                    </Text>
-                    <Text style={productprice}>
-                        200$
-                    </Text>
-                </TouchableOpacity>
+                            </TouchableOpacity>
+                        ))}
+
                 </View>
             </View>
         );
@@ -67,7 +55,7 @@ class TopProduct extends Component {
 
 const { width } = Dimensions.get('window');
 const productwidth = (width - 60) / 2;
-const productheight = (productwidth / 361) * 452;
+const productheight = (productwidth / 361) * 414;
 
 const styles = StyleSheet.create({
     containers: {
@@ -76,7 +64,7 @@ const styles = StyleSheet.create({
         shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
-    
+
     },
     ImageStyle: {
         width: productwidth,
@@ -86,7 +74,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         paddingLeft: 10,
-        
+
     },
     productcontainer: {
         width: productwidth,
@@ -108,8 +96,8 @@ const styles = StyleSheet.create({
     productname: {
         paddingLeft: 10,
         fontFamily: 'Avenir',
-        color: '#D3D3CF',
-        fontWeight: '500',
+        color: 'lawngreen',
+        fontWeight: '100',
     },
     productprice: {
         paddingLeft: 10,
@@ -118,3 +106,4 @@ const styles = StyleSheet.create({
     }
 });
 export default TopProduct;
+
