@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
-    View, Text, Image, StyleSheet, Dimensions, TouchableOpacity,
+    View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ListView
 } from 'react-native';
-import sp1 from '../../../../media/temp/sp1.jpeg';
-import sp2 from '../../../../media/temp/sp2.jpeg';
-import sp3 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
 
 const url = 'http://192.168.1.8:8888/app/images/product/';
 class TopProduct extends Component {
@@ -28,26 +24,32 @@ class TopProduct extends Component {
                 <View style={titlecontainer}>
                     <Text style={titlestyle}> TOP PRODUCT </Text>
                 </View>
-                <View style={body}>
-                    {
-                        topProducts.map(e => (
-                            <TouchableOpacity
-                                style={productcontainer}
-                                onPress={() => {this.props.navigation.navigate('ProductDetail', { product: e });
-                            }}
-                                key={e.id}
-                            >
-                                <Image source={{ uri: `${url}${e.images[0]}` }} style={ImageStyle} />
-                                <Text style={productname}>
-                                    {e.name.toUpperCase()}
-                                </Text>
-                                <Text style={productprice}>
-                                    {e.price}$
-                    </Text>
-                            </TouchableOpacity>
-                        ))}
-
-                </View>
+                <ListView
+                    enableEmptySections
+                    contentContainerStyle={body}
+                    dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(topProducts)}
+                    renderRow={product1 => (
+                        <TouchableOpacity
+                            style={productcontainer}
+                            onPress={() => {
+                                this.props.navigation.navigate('ProductDetail', { product: product1 });
+                                    }}
+                            key={product1.id}
+                        >
+                            <Image source={{ uri: `${url}${product1.images[0]}` }} style={ImageStyle} />
+                            <Text style={productname}>
+                                {product1.name.toUpperCase()}
+                            </Text>
+                            <Text style={productprice}>
+                                {product1.price}$
+                            </Text>
+                        </TouchableOpacity>
+                    )}
+                    renderSeparator={(sectionId, rowId) => {
+                        if (rowId % 2 === 1) return <View style={{ width, height: 10 }} />;
+                        return null;
+                    }}
+                />
             </View>
         );
     }
@@ -55,16 +57,13 @@ class TopProduct extends Component {
 
 const { width } = Dimensions.get('window');
 const productwidth = (width - 60) / 2;
-const productheight = (productwidth / 361) * 414;
+const productheight = (productwidth / 361) * 452;
 
 const styles = StyleSheet.create({
     containers: {
         backgroundColor: '#fff',
         margin: 10,
-        shadowColor: '#2E272B',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.2,
-
+        elevation: 3
     },
     ImageStyle: {
         width: productwidth,
@@ -74,14 +73,11 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         paddingLeft: 10,
-
     },
     productcontainer: {
         width: productwidth,
-        shadowColor: '#2E272B',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
+        elevation: 3,
+        backgroundColor: '#fff'
     },
     titlestyle: {
         color: '#D3D3CF',

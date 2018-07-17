@@ -9,6 +9,7 @@ const RootCart = StackNavigator({
     },
     CartView: {
         screen: CartView,
+        
     },
 },
 {
@@ -17,14 +18,20 @@ const RootCart = StackNavigator({
 }
 );
 class Cart extends Component {
-    constructor(props) {
+    constructor(props){
         super(props);
-        this.state = { };
+        this.state = {
+           // cartArray: this.props
+        };
     }
     render() {
-            const { navigation } = this.props;
+           // const { cartArray } = this.state; 
+            const { navigation, cartArray } = this.props;
+            
+            console.log('**Cart');
+            console.log(cartArray);
         return (
-            <RootCart navigation = {navigation} />
+            <RootCart navigation={navigation} cartArray = {cartArray}/>
         );
     }
 }

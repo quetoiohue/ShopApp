@@ -17,6 +17,8 @@ class HomeView extends Component {
     render() {
         const { wrapper } = styles;
         const { screenProps, navigation } = this.props;
+        // console.log('HomeV');
+        // console.log(this.props.screenProps.user.topProducts);
         return (
              <ScrollView style={wrapper} >
                  <Collection navigation={navigation} />

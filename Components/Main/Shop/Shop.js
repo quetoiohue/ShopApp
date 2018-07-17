@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     View,
-    Dimensions,
     StyleSheet,
     Image,
 } from 'react-native';
@@ -19,8 +18,8 @@ import ic_search from '../../../media/appIcon/search0.png';
 import Home from './Home/Home';
 import Cart from './Cart/Cart';
 import Search from './Search/Search';
+import global from '../../global';
 
-const { height } = Dimensions.get('window');
 class Shop extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +27,9 @@ class Shop extends Component {
             selectedTab: 'home',
             types: [],
             topProducts: [],
+            cartArray: [1],
         };
+        global.addProductToCart = this.addProductToCart.bind(this);
     }
     openMenu() {
         const { open } = this.props;
@@ -45,12 +46,19 @@ class Shop extends Component {
                 });
             });
     }
+    addProductToCart(product) {
+        this.setState({
+            cartArray: this.state.cartArray.concat(product)
+        });
+        console.log("**Shop");
+        console.log(this.state.cartArray);
+    }
     render() {
         const { icstyle } = styles;
         const { selectedTab } = this.state;
-        const { types, topProducts } = this.state;
-        console.log('Shop*************************');
-        console.log(types);
+        const { types, topProducts, cartArray } = this.state;
+        console.log("**ShopR");
+        console.log(this.state.cartArray);
         return (
             <View style={{ flex: 1 }}>
                 <Header onOpen={this.openMenu.bind(this)} />
@@ -72,10 +80,10 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'Cart' })}
                         renderIcon={() => <Image source={ic_cart} style={icstyle} />}
                         renderSelectedIcon={() => <Image source={ic_carts} style={icstyle} />}
-                        badgeText="1"
+                        badgeText={this.state.cartArray.length}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <Cart />
+                        <Cart cartArray = {cartArray}/>
                     </TabNavigator.Item>
 
                     <TabNavigator.Item

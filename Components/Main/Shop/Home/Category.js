@@ -20,8 +20,6 @@ class Category extends Component {
     render() {
         const { wrapper, textStyle, imageStyle, catetitle, BoxTitle } = styles;
         const { screenProps } = this.props;
-        console.log('Category*************************');
-        console.log(screenProps.user.types);
         const { types } = screenProps.user;
         return (
             <View style={wrapper}>
@@ -56,10 +54,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         margin: 10,
         justifyContent: 'space-between',
-        shadowColor: '#2E272B',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.2,
-        shadowRadius: 100,
+        elevation: 3,
         padding: 10,
         marginTop: 0
     },

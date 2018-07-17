@@ -21,7 +21,7 @@ class ListProduct extends Component {
     }
     render() {
         const { container, Icback, TextHeader, wrapper,
-            ImaStyle, containerScroll, containDetail, TextName,
+            ImaStyle, containerScroll, containDetail, TextName, Header,
             TextPrice, TextPrize } = styles;
         return (
             <View style={container}>
@@ -30,7 +30,7 @@ class ListProduct extends Component {
                         <Image source={ic_backList} style={Icback} />
                     </TouchableOpacity>
                     <Text style={TextHeader}> Party Dress </Text>
-                    <View style={{ width: 25 }} />
+                    <View style={{ width: 25, height: 25 }} />
                 </View>
                 <ScrollView style={containerScroll}>
                     <TouchableOpacity style={wrapper}>
