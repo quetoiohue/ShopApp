@@ -21,17 +21,15 @@ class Cart extends Component {
     constructor(props){
         super(props);
         this.state = {
-           // cartArray: this.props
+           
         };
     }
+    
     render() {
-           // const { cartArray } = this.state; 
-            const { navigation, cartArray } = this.props;
-            
-            console.log('**Cart');
-            console.log(cartArray);
+            const { navigation } = this.props;
+           
         return (
-            <RootCart navigation={navigation} cartArray = {cartArray}/>
+            <RootCart navigation={navigation} screenProps={this.props.cartArray} />
         );
     }
 }

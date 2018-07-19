@@ -27,7 +27,7 @@ class Shop extends Component {
             selectedTab: 'home',
             types: [],
             topProducts: [],
-            cartArray: [1],
+            cartArray: [],
         };
         global.addProductToCart = this.addProductToCart.bind(this);
     }
@@ -48,7 +48,7 @@ class Shop extends Component {
     }
     addProductToCart(product) {
         this.setState({
-            cartArray: this.state.cartArray.concat(product)
+            cartArray: this.state.cartArray.concat({product , quantity: 1 })
         });
         console.log("**Shop");
         console.log(this.state.cartArray);

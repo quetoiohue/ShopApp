@@ -3,7 +3,7 @@ import {
     View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ListView
 } from 'react-native';
 
-const url = 'http://192.168.1.8:8888/app/images/product/';
+const url = 'http://192.168.1.4:8888/app/images/product/';
 class TopProduct extends Component {
     constructor(props) {
         super(props);

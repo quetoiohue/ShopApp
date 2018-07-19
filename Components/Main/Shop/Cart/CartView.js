@@ -4,12 +4,13 @@ import {
     Dimensions, ListView
 } from 'react-native';
 
+const url = 'http://192.168.1.8:8888/app/images/product/';
 class CartView extends Component {
     constructor(props) {
         super(props);
         this.state = {
             Quantity: 0,
-            cartArray: this.props
+           
         };
     }
     gotoDetail() {
@@ -27,27 +28,55 @@ class CartView extends Component {
         });
     }
     render() {
-        const { wrapper, boxProduct, ImageProduct, boxRight, boxName,
+        const { main, wrapper, boxProduct, ImageProduct, boxRight, boxName,
             textPrice, boxBottom, boxAdd, btnAdd, AddText, btnSub,
-            textName, textDetail } = styles;
-        const { cartArray } = this.props;
+            textName, textDetail, checkoutButton, checkoutTitle } = styles;
+        // const { cartArray } = this.props;
+        const cartArray = this.props.screenProps;
         console.log('**CartView');
         console.log(cartArray);
         return (
             <View style={wrapper}>
-                {/* <ListView
+                <ListView
+                    contentContainerStyle={main}
                     enableEmptySections
                     dataSource={new ListView.DataSource({
                         rowHasChanged: (r1, r2) => r1 !== r2
                     }).cloneWithRows(cartArray)}
-                    renderRow={() => <Text> DDD </Text>}
-                /> */}
-                <View style={boxName}>
-                                <Text style={textName}> LagVeRo Davici </Text>
-                                <TouchableOpacity>
-                                    <Text> XL </Text>
-                                </TouchableOpacity>
+                    renderRow={cartItem => (
+                        <View style={boxProduct}>
+                            <Image source={{ uri: `${url}${cartItem.product.images[0]}` }} style={ImageProduct} />
+                            <View style={boxRight}>
+                                <View style={boxName}>
+                                    <Text style={textName}> {cartItem.product.name} </Text>
+                                    <TouchableOpacity>
+                                        <Text> X </Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View>
+                                    <Text style={textPrice}> {cartItem.product.price}$ </Text>
+                                </View>
+                                <View style={boxBottom}>
+                                    <View style={boxAdd}>
+                                        <TouchableOpacity style={btnAdd} onPress={this.addQuantityProduct.bind(this)}>
+                                            <Text style={AddText}> + </Text>
+                                        </TouchableOpacity>
+                                        <Text style={AddText}> {cartItem.quantity} </Text>
+                                        <TouchableOpacity style={btnSub} onPress={this.subQuantityProduct.bind(this)}>
+                                            <Text style={AddText}> - </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TouchableOpacity>
+                                        <Text style={textDetail}> SHOW DETAILS </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
+                        </View>
+                    )}
+                />
+                <TouchableOpacity style={checkoutButton} >
+                    <Text style={checkoutTitle}>TOTAL 1000$ CHECKOUT NOW</Text>
+                </TouchableOpacity>
             </View>
 
         );
@@ -61,7 +90,7 @@ const imageHeight = (imageWidth * 452) / 361;
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        backgroundColor: 'palegoldenrod',
+        backgroundColor: '#DFDFDF',
     },
     ImageProduct: {
         height: imageHeight,
@@ -80,6 +109,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 10,
         margin: 10,
+        elevation: 6,
     },
     boxName: {
         flexDirection: 'row',
@@ -94,9 +124,7 @@ const styles = StyleSheet.create({
         width: 100,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderColor: 'dimgray',
-        borderWidth: 1,
-        borderRadius: 30,
+        
     },
     boxBottom: {
         flexDirection: 'row',
@@ -127,30 +155,26 @@ const styles = StyleSheet.create({
         fontFamily: 'Avenir',
         fontWeight: '500',
         color: 'limegreen',
-    }
+    },
+    checkoutTitle: {
+        color: '#FFF',
+        fontSize: 15,
+        fontWeight: 'bold',
+        fontFamily: 'Avenir'
+    },
+    checkoutButton: {
+        height: 50,
+        margin: 10,
+        marginTop: 0,
+        backgroundColor: '#2ABB9C',
+        borderRadius: 2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    main: {
+        width, backgroundColor: '#DFDFDF'
+    },
+
 
 });
 export default CartView;
-        // <View style={boxProduct}>
-        //                 <Image source={{ uri: 'http://192.168.1.8:8888/app/images/product/56.jpeg' }} style={ImageProduct} />
-        //                 <View style={boxRight}>
-                            
-        //                     <View>
-        //                         <Text style={textPrice}> 178$ </Text>
-        //                     </View>
-        //                     <View style={boxBottom}>
-        //                     <View style={boxAdd}>
-        //                         <TouchableOpacity style={btnAdd} onPress={this.addQuantityProduct.bind(this)}>
-        //                             <Text style={AddText}> + </Text>
-        //                         </TouchableOpacity>
-        //                         <Text style={AddText}> {this.state.Quantity} </Text>
-        //                         <TouchableOpacity style={btnSub} onPress={this.subQuantityProduct.bind(this)}>
-        //                             <Text style={AddText}> - </Text>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                         <TouchableOpacity>
-        //                             <Text style={textDetail}> SHOW DETAILS </Text>
-        //                         </TouchableOpacity>
-        //                     </View>
-        //                 </View>
-        //             </View>

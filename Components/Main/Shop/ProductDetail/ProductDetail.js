@@ -14,7 +14,7 @@ export default class ProductDetail extends Component {
         navigation.pop();
     }
     addProductToCart() {
-        const { product } = this.props.navigation.getParam('product');
+        const product = this.props.navigation.getParam('product');
         global.addProductToCart(product);
     }
     render() {
