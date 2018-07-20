@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Header from './Header';
-
 import ic_homes from '../../../media/appIcon/home.png';
 import ic_home from '../../../media/appIcon/home0.png';
 import ic_carts from '../../../media/appIcon/cart.png';
@@ -19,6 +18,9 @@ import Home from './Home/Home';
 import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import global from '../../global';
+import initData from '../../api/initData';
+import getCart from '../../api/getCart';
+import saveCart from '../../api/saveCart';
 
 class Shop extends Component {
     constructor(props) {
@@ -36,8 +38,7 @@ class Shop extends Component {
         open();
     }
     componentDidMount() {
-        fetch('http://192.168.1.8:8888/app/') //eslint-disable-line
-            .then(res => res.json())
+            initData()
             .then(resJSON => {
                 const { type, product } = resJSON;
                 this.setState({
@@ -45,19 +46,22 @@ class Shop extends Component {
                     topProducts: product,
                 });
             });
+            getCart()
+            .then(cartArray => this.setState({ cartArray }))
     }
     addProductToCart(product) {
         this.setState({
-            cartArray: this.state.cartArray.concat({product , quantity: 1 })
-        });
-        console.log("**Shop");
+            cartArray: this.state.cartArray.concat({ product, quantity: 1 }) }, 
+             () => saveCart(this.state.cartArray) 
+            );
+        console.log('**Shop');
         console.log(this.state.cartArray);
     }
     render() {
         const { icstyle } = styles;
         const { selectedTab } = this.state;
         const { types, topProducts, cartArray } = this.state;
-        console.log("**ShopR");
+        console.log('**ShopR');
         console.log(this.state.cartArray);
         return (
             <View style={{ flex: 1 }}>
@@ -83,7 +87,7 @@ class Shop extends Component {
                         badgeText={this.state.cartArray.length}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <Cart cartArray = {cartArray}/>
+                        <Cart cartArray={cartArray} />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
