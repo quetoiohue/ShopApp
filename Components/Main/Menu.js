@@ -3,12 +3,17 @@ import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-n
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 import profile from '../../media/temp/profile.png';
-
+import global from '../global';
 
 export default class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = { isLogin: true };
+    this.state = { user: null };
+    global.onSignIn = this.onSignIn.bind(this);
+  }
+
+  onSignIn(user) {
+    this.setState({ user });
   }
   gotoAuthentication() {
     const { navigation } = this.props;
@@ -29,9 +34,10 @@ export default class Menu extends Component {
   render() {
     const { container, profiles, btnSignInStyle,
       btnTextSignIn, loginContainer, username } = styles;
+    const { user } = this.state;
     const logInJSX = (
       <View style={loginContainer}>
-        <Text style={username}> Tran Van Quang </Text>
+        <Text style={username}> { user ? user.name : ''} </Text>
         <View>
           <TouchableOpacity style={btnSignInStyle} onPress={this.gotoOrderHistory.bind(this)}>
             <Text style={btnTextSignIn}> Order History </Text>
@@ -49,14 +55,14 @@ export default class Menu extends Component {
     const logOutJSX = (
       <View style={loginContainer}>
         <TouchableOpacity
-style={btnSignInStyle}
+          style={btnSignInStyle}
           onPress={this.gotoAuthentication.bind(this)}
         >
           <Text style={btnTextSignIn}> Sign In </Text>
         </TouchableOpacity>
       </View>
     );
-    const mainJSX = (this.state.isLogin) ? logInJSX : logOutJSX;
+    const mainJSX = (this.state.user) ? logInJSX : logOutJSX;
     return (
 
       <View style={container}>
@@ -91,12 +97,11 @@ const styles = StyleSheet.create({
   },
   btnSignInStyle: {
     backgroundColor: '#FFF',
-    height: 50,
-    width: 200,
-    borderRadius: 5,
-    paddingLeft: 10,
+    height: 45,
+    width: 150,
+    borderRadius: 10,
     justifyContent: 'center',
-    //alignItems: 'center',
+    alignItems: 'center',
     marginBottom: 10,
   },
   btnTextSignIn: {

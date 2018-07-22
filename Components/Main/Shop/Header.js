@@ -29,6 +29,8 @@ class Header extends Component {
                 </View>
                 <TextInput
                     style={TextIP}
+    
+                    multiline={false}
                     underlineColorAndroid='transparent'
                     placeholder="what do you want search ?"
                 />
@@ -60,7 +62,8 @@ const styles = StyleSheet.create({
     TextIP: {
         height: height / 20,
         backgroundColor: '#FFF',
-        paddingLeft: 10,
+        //paddingLeft: 10,
+        opacity: 0.9
     }
 });
 export default Header;

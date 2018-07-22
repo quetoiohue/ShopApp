@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {
   View, Text, TouchableOpacity, Image,
-  TextInput, StyleSheet, Dimensions
+  StyleSheet, Dimensions
 } from 'react-native';
 import backwhite from '../../media/appIcon/back_white.png';
 import iclogo from '../../media/appIcon/ic_logo.png';
+import register from '../api/register';
+import SignIn from '../Authentication/SignIn';
+import SignUp from '../Authentication/SignUp';
 
 const { height } = Dimensions.get('window');
 export default class Authentication extends Component {
@@ -14,8 +17,12 @@ export default class Authentication extends Component {
       isSignIn: true
     };
   }
+  componentDidMount() {
+    register('quang@gmail.com', 'quang', '123')
+    .then(res => console.log(res));
+  }
   gotoBack() {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('Main');
   }
   SignIn() {
     this.setState({ isSignIn: true });
@@ -24,58 +31,14 @@ export default class Authentication extends Component {
     this.setState({ isSignIn: false });
   }
   render() {
-    const { container, header, Icstyle, TextHeadStyle,
-      TextIPstyle, BoxSignIn, btnIPstyle, boxSign, BoxSignUp,
-      btnSignIn, btnSignUp, TextbtnON, TextbtnOFF } = styles;
-    const SignInJSX = (
-      <View style={BoxSignIn}>
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TouchableOpacity style={btnIPstyle}>
-          <Text> SIGN IN NOW </Text>
-        </TouchableOpacity>
-      </View>
-    );
-    const SignUpJSX = (
-      <View style={BoxSignUp}>
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TextInput
-          style={TextIPstyle}
-          underlineColorAndroid='#fff'
-          placeholder="Enter your Email"
-        />
-        <TouchableOpacity style={btnIPstyle}>
-          <Text> SIGN IN NOW </Text>
-        </TouchableOpacity>
-      </View>
-    );
-    const mainJSX = this.state.isSignIn ? SignInJSX : SignUpJSX;
+    const { container, header, Icstyle, TextHeadStyle
+      , boxSign, btnSignIn, btnSignUp, TextbtnON, TextbtnOFF } = styles;
+    const mainJSX = this.state.isSignIn ? <SignIn gotoBackMain={this.gotoBack.bind(this)}/> : <SignUp gotoSignIn={this.SignIn.bind(this)}/>;
+
     return (
       <View style={container}>
         <View style={header}>
-          <TouchableOpacity onPress = {this.gotoBack.bind(this)}>
+          <TouchableOpacity onPress={this.gotoBack.bind(this)}>
             <Image source={backwhite} style={Icstyle} />
           </TouchableOpacity>
           <Text style={TextHeadStyle}> Wearing a Dress </Text>
@@ -106,7 +69,6 @@ const styles = StyleSheet.create({
     height: height / 10,
     padding: 10,
     marginVertical: 8
-    ,
   },
   Icstyle: {
     height: 30,
@@ -116,35 +78,6 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'Avenir',
     fontSize: 22,
-  },
-  BoxSignIn: {
-    height: height / 4,
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    padding: 30
-  },
-  BoxSignUp: {
-    height: height / 2.5,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: 30
-  },
-  TextIPstyle: {
-    backgroundColor: '#fff',
-    height: 40,
-    borderRadius: 70,
-    paddingLeft: 30,
-    justifyContent: 'center',
-    marginBottom: 10
-  },
-  btnIPstyle: {
-    backgroundColor: 'skyblue',
-    height: 40,
-    borderRadius: 70,
-    alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
-    justifyContent: 'center'
   },
   boxSign: {
     height: height / 16,
