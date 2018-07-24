@@ -15,10 +15,11 @@ export default class Menu extends Component {
 
   onSignIn(user) {
     this.setState({ user });
-    saveToken('');
+    
   }
   onSignOut(){
     this.setState({ user: null });
+    saveToken('');
   }
   gotoAuthentication() {
     const { navigation } = this.props;
