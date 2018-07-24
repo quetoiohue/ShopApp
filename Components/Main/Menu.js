@@ -4,6 +4,7 @@ import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 import profile from '../../media/temp/profile.png';
 import global from '../global';
+import saveToken from '../api/saveToken';
 
 export default class Menu extends Component {
   constructor(props) {
@@ -14,6 +15,10 @@ export default class Menu extends Component {
 
   onSignIn(user) {
     this.setState({ user });
+    saveToken('');
+  }
+  onSignOut(){
+    this.setState({ user: null });
   }
   gotoAuthentication() {
     const { navigation } = this.props;
@@ -45,7 +50,7 @@ export default class Menu extends Component {
           <TouchableOpacity style={btnSignInStyle} onPress={this.gotoChangeInfo.bind(this)}>
             <Text style={btnTextSignIn}> Change Info </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={btnSignInStyle} onPress={this.gotoAuthentication.bind(this)}>
+          <TouchableOpacity style={btnSignInStyle} onPress={this.onSignOut.bind(this)}>
             <Text style={btnTextSignIn}> Sign Out </Text>
           </TouchableOpacity>
         </View>

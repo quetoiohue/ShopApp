@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import global from '../../../global';
 
-const url = 'http://192.168.1.8:8888/app/images/product/';
+const url = 'http://192.168.1.4:8888/app/images/product/';
 class CartView extends Component {
     constructor(props) {
         super(props);

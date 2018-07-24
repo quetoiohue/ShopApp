@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import {
-  Dimensions,
-} from 'react-native';
-//import CC from './Menu'
 import Drawer from 'react-native-drawer';
 import Shop from './Shop/Shop';
 import Menu from './Menu';
+import checkLogin from '../api/checkLogin';
+import getToken from '../api/getToken';
+import global from '../global';
 
 
-const { height } = Dimensions.get('window');
 export default class Main extends Component {
+
+  componentDidMount() {
+    getToken()
+    .then(token1 => JSON.parse(token1))
+    .then(token => checkLogin(token))
+    .then(res => global.onSignIn(res.user))
+    .catch(err => console.log('LOI CHECK LOGIN', err));
+}
   closeControlPanel = () => {
     this._drawer.close();
   };

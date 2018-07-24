@@ -91,8 +91,7 @@ class Shop extends Component {
         const { icstyle } = styles;
         const { selectedTab } = this.state;
         const { types, topProducts, cartArray } = this.state;
-        console.log('**ShopR');
-        console.log(this.state.cartArray);
+    
         return (
             <View style={{ flex: 1 }}>
                 <Header onOpen={this.openMenu.bind(this)} />

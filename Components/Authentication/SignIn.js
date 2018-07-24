@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import signIn from '../api/signIn';
 import global from '../global';
+import saveToken from '../api/saveToken';
+import getToken from '../api/getToken';
 
 class SignIn extends Component {
   constructor(props) {
@@ -20,13 +22,14 @@ class SignIn extends Component {
     this.focusNextField = this.focusNextField.bind(this);
     this.inputs = {};
   }
-
+  
    onSignIn() {
     const { email, password } = this.state;
     signIn(email, password)
       .then(res => {
         global.onSignIn(res.user);
-        this.props.gotoBackMain();
+        this.props.gotoBackMain();  
+        saveToken(res.token);
       })
       .catch(err => console.log(err));
   }
