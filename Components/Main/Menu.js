@@ -41,7 +41,7 @@ export default class Menu extends Component {
     const { container, profiles, btnSignInStyle,
       btnTextSignIn, loginContainer, username } = styles;
     const { user } = this.state;
-    console.log("Menu: " , this.state.user);
+    
     const logInJSX = (
       <View style={loginContainer}>
         <Text style={username}> { user ? user.name : ''} </Text>

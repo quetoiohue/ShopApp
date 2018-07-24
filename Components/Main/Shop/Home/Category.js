@@ -12,9 +12,9 @@ class Category extends Component {
         super(props);
         this.state = {};
     }
-    gotoListProduct() {
+    gotoListProduct(e) {
         const { navigation } = this.props;
-        navigation.navigate('ListProduct');
+        navigation.navigate('ListProduct', { category: e });
     }
     
     render() {
@@ -31,7 +31,7 @@ class Category extends Component {
                 <View style={{ flex: 4, justifyContent: 'flex-end' }}>
                     <Swiper showsPagination width={imageWidth} height={imageHeight}>
                          { types.map(e => (
-                        <TouchableOpacity onPress={this.gotoListProduct.bind(this)} key={e.id}>
+                        <TouchableOpacity onPress={() => this.gotoListProduct(e)} key={e.id}>
                             <ImageBackground source={{ uri: `${url}${e.image}` }} style={imageStyle} >
                                 <Text style={catetitle}> {e.name} </Text>
                             </ImageBackground>
