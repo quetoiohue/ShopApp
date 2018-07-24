@@ -5,7 +5,7 @@ import Menu from './Menu';
 import checkLogin from '../api/checkLogin';
 import getToken from '../api/getToken';
 import global from '../global';
-
+import refreshToken from '../api/refreshToken';
 
 export default class Main extends Component {
 
@@ -15,7 +15,13 @@ export default class Main extends Component {
     .then(token => checkLogin(token))
     .then(res => global.onSignIn(res.user))
     .catch(err => console.log('LOI CHECK LOGIN', err));
+
+    // setInterval(() => {
+    //   getToken()
+    //   .then(token => refreshToken(token));
+    // } , 5 * 1000);
 }
+
   closeControlPanel = () => {
     this._drawer.close();
   };
