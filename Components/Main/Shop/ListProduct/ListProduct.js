@@ -1,70 +1,97 @@
 import React, { Component } from 'react';
 import {
     TouchableOpacity, Text, View, StyleSheet,
-    Image, ListView
+    Image, ListView, RefreshControl
 } from 'react-native';
-import Header from '../Header';
 import ic_backList from '../../../../media/appIcon/backList.png';
-import sp1 from '../../../../media/appIcon/maxi.jpeg';
-import sp2 from '../../../../media/appIcon/midi.jpeg';
-import sp3 from '../../../../media/appIcon/mini.jpeg';
-import sp4 from '../../../../media/appIcon/party.jpeg';
 import getListproduct from '../../../api/getListproduct';
 
 
 const url = 'http://192.168.1.4:8888/app/images/product/';
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
 class ListProduct extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        const ds = new ListView.DataSource({ rowHasChanged: (r1 , r2) => r1 !== r2});
-        this.state= {
-            listProduct: ds
-        }
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            listProduct: ds,
+            refreshing: false,
+            page: 1,
+            category: this.props.navigation.getParam('category'),
+        };
+        this.arr = [];
     }
     componentDidMount() {
-        getListproduct(4,1)
-        .then(res => {
-            this.setState({ listProduct: this.state.listProduct.cloneWithRows(res)});
-        })
-        .catch(err => console.log(err));
+        const idType = this.state.category.id;
+        getListproduct(idType, 1)
+            .then(res => {
+                this.arr = res;
+                this.setState({ listProduct: this.state.listProduct.cloneWithRows(this.arr) });
+            })
+            .catch(err => console.log(err));
     }
     goback() {
         const { navigation } = this.props;
         navigation.goBack();
     }
-    gotoDetail() {
+    gotoDetail(e ) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail' , {product: e});
     }
     render() {
         const { container, Icback, TextHeader, wrapper,
-            ImaStyle, containerScroll, containDetail, TextName, Header,
+            ImaStyle, containDetail, TextName, header,
             TextPrice, TextPrize, wrapperaround } = styles;
         const category = this.props.navigation.getParam('category');
         return (
             <View style={container}>
                 <View style={wrapperaround}>
-                <View style={Header}>
-                    <TouchableOpacity onPress = {this.goback.bind(this)}>
-                        <Image source={ic_backList} style={Icback} />
-                    </TouchableOpacity>
-                    <Text style={TextHeader}> {category.name} </Text>
-                    <View style={{ width: 25, height: 25 }} />
-                </View>
-                <ListView 
-                dataSource = {this.state.listProduct}
-                renderRow = { product => (
-                    <TouchableOpacity style={wrapper}>
-                    <Image source={{ uri: `${url}${product.images[0]}`}} style={ImaStyle} />
-                    <View style={containDetail}>
-                        <Text style={TextName}> {product.name} </Text>
-                        <Text style={TextPrice}> {product.price}$ </Text>
-                        <Text style={TextPrize}> {product.material} </Text>
+                    <View style={header}>
+                        <TouchableOpacity onPress={this.goback.bind(this)}>
+                            <Image source={ic_backList} style={Icback} />
+                        </TouchableOpacity>
+                        <Text style={TextHeader}> {category.name} </Text>
+                        <View style={{ width: 25, height: 25 }} />
                     </View>
-                    <View style={{ backgroundColor: 'white', width: 10 }} />
-            </TouchableOpacity>
-                )}
-                />
+                    <ListView
+                        dataSource={this.state.listProduct}
+                        renderRow={product => (
+                            <TouchableOpacity 
+                            onPress = {() => this.gotoDetail(product)}
+                             style={wrapper}>
+                                <Image source={{ uri: `${url}${product.images[0]}` }} style={ImaStyle} />
+                                <View style={containDetail}>
+                                    <Text style={TextName}> {toTitleCase(product.name)} </Text>
+                                    <Text style={TextPrice}> {product.price}$ </Text>
+                                    <Text style={TextPrize}> {product.material} </Text>
+                                </View>
+                                <View style={{ backgroundColor: 'white', width: 10 }} />
+                            </TouchableOpacity>
+                        )}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => {
+                                    this.setState({
+                                        refreshing: true
+                                    });
+                                    const idType = category.id;
+                                    const newpage = this.state.page + 1;
+                                    getListproduct(idType, newpage)
+                                        .then(arrP => {
+                                            this.arr = arrP.concat(this.arr);
+                                            this.setState({
+                                                listProduct: this.state.listProduct.cloneWithRows(this.arr),
+                                                refreshing: false
+                                            });
+                                        })
+                                        .catch(err => console.log(err));
+                                }}
+                            />
+                        }
+                    />
                 </View>
             </View>
         );
@@ -74,47 +101,39 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'lavender',
-    
+
     },
-    containerScroll: {
+    wrapperaround: {
         margin: 10,
-        marginTop: 0,
         backgroundColor: 'white',
     },
     wrapper: {
+        marginTop: 5,
+        margin: 0,
         height: 150,
         backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'lavender',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 15
+        padding: 15,
+        elevation: 6
     },
-    Header: {
-        height: 50,
+    header: {
+        height: 40,
         backgroundColor: 'white',
-        borderWidth: 1,
-        borderColor: 'lavender',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 40 },
-        shadowOpacity: 1,
-        shadowRadius: 100,
-        margin: 10,
-        marginBottom: 0,
     },
     containDetail: {
         flex: 1,
         justifyContent: 'space-between',
         padding: 20,
         paddingTop: 0,
+
     },
     ImaStyle: {
         height: 120,
         width: (120 * 361) / 452,
-        //margin: 10
     },
     Icback: {
         height: 25,
