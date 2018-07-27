@@ -25,8 +25,11 @@ class Header extends Component {
 
     onSearch(){
         const { txtSearch } = this.state;
+        this.setState({ txtSearch: '' });
         searchproduct(txtSearch)    
-        .then(arrP => global.setSearchArr(arrP))
+        .then(arrP => {
+            global.setSearchArr(arrP);
+        })
         .catch(err => console.log(err));
     }
     render() {
@@ -46,6 +49,7 @@ class Header extends Component {
                     underlineColorAndroid='transparent'
                     placeholder="what do you want search ?"
                     onChangeText={text => this.setState({ txtSearch: text })}
+                    value={this.state.txtSearch}
                     onFocus={() => global.gotoSearch()}
                     onSubmitEditing={this.onSearch.bind(this)}
                 />

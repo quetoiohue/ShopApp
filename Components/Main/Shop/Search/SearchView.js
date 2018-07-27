@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, View, Dimensions,
     StyleSheet, ListView, Image } from 'react-native';
 import global from '../../../global';
 
-const url = 'http://192.168.1.8/api/images/product/';
+const url = 'http://192.168.1.8:8888/app/images/product/';
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
@@ -21,9 +21,9 @@ class SearchView extends Component {
     setSearchArr(arr) {
         this.setState({ listProduct: this.state.listProduct.cloneWithRows(arr) });
     }
-    gotoDetail(e ) {
+    gotoDetail(e) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail', e);
+        navigation.navigate('ProductDetail', {product: e });
     }
     render() {
         const {
@@ -37,13 +37,15 @@ class SearchView extends Component {
                     dataSource={this.state.listProduct}
                     renderRow={productItem => (
                         <View style={product}>
-                           
+                            <View>
+                           <Image source={{ uri: `${url}${productItem.images[0]}` }} style={productImage} />
+                           </View>
                             <View style={mainRight}>
-                                <Text style={txtName}>{toTitleCase('productItem.name')}</Text>
-                                <Text style={txtPrice}>900$</Text>
-                                <Text style={txtMaterial}>Material </Text>
+                                <Text style={txtName}>{toTitleCase(productItem.name)}</Text>
+                                <Text style={txtPrice}>{productItem.price}$</Text>
+                                <Text style={txtMaterial}>Material {productItem.material} </Text>
                                 <View style={{ flexDirection: 'row' }} >
-                                    <Text style={txtColor}>Color </Text>
+                                    <Text style={txtColor}>Color {productItem.color}</Text>
                                     <View
                                         style={{
                                             height: 15,
@@ -72,7 +74,7 @@ const imageHeight = (imageWidth * 452) / 361;
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#DBDBDB',
+        backgroundColor: 'white',
         flex: 1
     },
     product: {
@@ -81,9 +83,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#FFFFFF',
         borderRadius: 2,
-        shadowColor: '#3B5458',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.2
+        elevation: 6
     },
     productImage: {
         width: imageWidth,
