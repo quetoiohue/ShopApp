@@ -7,7 +7,7 @@ import global from '../../../../Components/global';
 const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
 
-const url = 'http://192.168.1.4:8888/app/images/product/';
+const url = 'http://192.168.1.8:8888/app/images/product/';
 export default class ProductDetail extends Component {
     goBack() {
         const { navigation } = this.props;

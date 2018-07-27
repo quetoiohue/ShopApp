@@ -6,7 +6,7 @@ import {
 import Swiper from 'react-native-swiper';
 
 const { width } = Dimensions.get('window');
-const url = 'http://192.168.1.4:8888/app/images/type/';
+const url = 'http://192.168.1.8:8888/app/images/type/';
 class Category extends Component {
     constructor(props) {
         super(props);

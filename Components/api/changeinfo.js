@@ -1,5 +1,5 @@
 const changeinfo = (token, name , address , phone ) => (
-    fetch('http://192.168.1.4:8888/app/change_info.php',
+    fetch('http://192.168.1.8:8888/app/change_info.php',
     {
         method: 'POST',
         headers: {

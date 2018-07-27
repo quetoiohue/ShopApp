@@ -11,11 +11,24 @@ import {
 
 import icMenu from '../../../media/appIcon/ic_menu.png';
 import icLogo from '../../../media/appIcon/ic_logo.png';
-
+import global from '../../global';
+import searchproduct from '../../api/searchproduct';
 
 const { height } = Dimensions.get('window');
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtSearch: '',
+        };
+    }
 
+    onSearch(){
+        const { txtSearch } = this.state;
+        searchproduct(txtSearch)    
+        .then(arrP => global.setSearchArr(arrP))
+        .catch(err => console.log(err));
+    }
     render() {
         const { wrapper, box, iconH, TextIP, titlestyle } = styles;
         return (
@@ -29,10 +42,12 @@ class Header extends Component {
                 </View>
                 <TextInput
                     style={TextIP}
-    
                     multiline={false}
                     underlineColorAndroid='transparent'
                     placeholder="what do you want search ?"
+                    onChangeText={text => this.setState({ txtSearch: text })}
+                    onFocus={() => global.gotoSearch()}
+                    onSubmitEditing={this.onSearch.bind(this)}
                 />
             </View>
         );

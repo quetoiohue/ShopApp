@@ -15,11 +15,6 @@ export default class Main extends Component {
     .then(token => checkLogin(token))
     .then(res => global.onSignIn(res.user))
     .catch(err => console.log('LOI CHECK LOGIN', err));
-
-    // setInterval(() => {
-    //   getToken()
-    //   .then(token => refreshToken(token));
-    // } , 5 * 1000);
 }
 
   closeControlPanel = () => {

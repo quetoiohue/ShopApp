@@ -35,11 +35,9 @@ class Shop extends Component {
         global.incrQuantity = this.incrQuantity.bind(this);
         global.decrQuantity = this.decrQuantity.bind(this);
         global.removeProduct = this.removeProduct.bind(this);
+        global.gotoSearch = this.gotoSearch.bind(this);
     }
-    openMenu() {
-        const { open } = this.props;
-        open();
-    }
+    
     componentDidMount() {
             initData()
             .then(resJSON => {
@@ -51,6 +49,15 @@ class Shop extends Component {
             });
             getCart()
             .then(cartArray => this.setState({ cartArray }));
+    }
+
+    gotoSearch(){
+        this.setState({ selectedTab: 'Search' });
+    }
+
+    openMenu() {
+        const { open } = this.props;
+        open();
     }
 
     addProductToCart(product) {

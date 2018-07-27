@@ -7,7 +7,7 @@ import ic_backList from '../../../../media/appIcon/backList.png';
 import getListproduct from '../../../api/getListproduct';
 
 
-const url = 'http://192.168.1.4:8888/app/images/product/';
+const url = 'http://192.168.1.8:8888/app/images/product/';
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
