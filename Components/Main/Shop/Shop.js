@@ -61,6 +61,8 @@ class Shop extends Component {
     }
 
     addProductToCart(product) {
+        const isExist = this.state.cartArray.some(e => e.product.id === product.id);
+        if (isExist) return;
         this.setState({
             cartArray: this.state.cartArray.concat({ product, quantity: 1 }) }, 
              () => saveCart(this.state.cartArray) 
@@ -80,7 +82,7 @@ class Shop extends Component {
     decrQuantity(productId) {
         const newCart = this.state.cartArray.map(e => {
             if (e.product.id !== productId) return e;
-            return { product: e.product, quantity: e.quantity - 1 };
+            return { product: e.product, quantity: e.quantity ? e.quantity - 1 : e.quantity };
         });
         this.setState({ cartArray: newCart },
         () => saveCart(this.state.cartArray)

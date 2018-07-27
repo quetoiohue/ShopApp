@@ -14,6 +14,7 @@ import Menu from './Components/Main/Menu';
 import Authentication from './Components/Authentication/Authentication';
  import OrderHistory from './Components/OrderHistory/OrderHistory';
  import Changeinfo from './Components/Changeinfo/Changeinfo';
+ import refreshToken from './Components/api/refreshToken';
 
 const RootStack = createStackNavigator(
   {
@@ -40,6 +41,9 @@ const RootStack = createStackNavigator(
   }
 );
 export default class App extends Component {
+  componentDidMount() {
+    setInterval(refreshToken , 30000);
+  }
   render() {
     const { navigation } = this.props;
   return <RootStack navigation={navigation} />;

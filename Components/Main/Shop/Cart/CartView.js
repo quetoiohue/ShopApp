@@ -6,6 +6,10 @@ import {
 import global from '../../../global';
 
 const url = 'http://192.168.1.8:8888/app/images/product/';
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+
 class CartView extends Component {
     constructor(props) {
         super(props);
@@ -45,7 +49,7 @@ class CartView extends Component {
                             <Image source={{ uri: `${url}${cartItem.product.images[0]}` }} style={ImageProduct} />
                             <View style={boxRight}>
                                 <View style={boxName}>
-                                    <Text style={textName}> {cartItem.product.name} </Text>
+                                    <Text style={textName}> {toTitleCase(cartItem.product.name)} </Text>
                                     <TouchableOpacity onPress ={() => this.removeProduct(cartItem.product.id)}>
                                         <Text> X </Text>
                                     </TouchableOpacity>
