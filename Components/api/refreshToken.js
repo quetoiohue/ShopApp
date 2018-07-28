@@ -12,23 +12,21 @@ const getNewToken = (token) => (
         body: JSON.stringify({ token }),
     })
     .then(res => res.text())
-    //.then(savetoken => saveToken(savetoken))
 );
 
 const refreshToken = async () => {
-    try{
-        const token1 = await getToken()
+    try {
+        const token1 = await getToken();
         const token = JSON.parse(token1);
-        console.log('token CU: ' , token);
-        if (token === '' || token === 'TOKEN_KHONG_HOP_LE'){
+        if (token === '' || token === 'TOKEN_KHONG_HOP_LE') {
             console.log('chua co token');
         }
         const newToken = await getNewToken(token);
+        //console.log(newToken);
         await saveToken(newToken);
-        console.log('Token moi : ', newToken);
-    }
-    catch(e){
+        }   
+        catch (e) {
         console.log(e);
     }
-}
+};
 module.exports = refreshToken;

@@ -42,7 +42,7 @@ const RootStack = createStackNavigator(
 );
 export default class App extends Component {
   componentDidMount() {
-    setInterval(refreshToken , 30000);
+    setInterval(refreshToken , 24 * 60 * 60000);
   }
   render() {
     const { navigation } = this.props;

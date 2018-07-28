@@ -5,7 +5,6 @@ import Menu from './Menu';
 import checkLogin from '../api/checkLogin';
 import getToken from '../api/getToken';
 import global from '../global';
-import refreshToken from '../api/refreshToken';
 
 export default class Main extends Component {
 

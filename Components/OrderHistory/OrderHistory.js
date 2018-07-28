@@ -4,8 +4,26 @@ import {
   Dimensions,
 } from 'react-native';
 import backs from '../../media/appIcon/backs.png';
+import getOrder from '../api/getOrder';
+import getToken from '../api/getToken';
 
 export default class OrderHistory extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrOrder: [],
+    };
+  }
+  componentDidMount() {
+    getToken()
+    .then( token => JSON.parse(token))
+    .then( token => getOrder(`${token}`))
+      .then(arrOrder => {
+        console.log('arrGet: ' + arrOrder);
+        this.setState({ arrOrder });
+      })
+      .catch(err => console.log('GetOrder: ', err));
+  }
   gotoBackMain() {
     const { navigation } = this.props;
     navigation.navigate('Main');
@@ -13,6 +31,8 @@ export default class OrderHistory extends Component {
   render() {
     const { container, header, TextHeadStyle, Icstyle, containOrder, wrapper,
       boxRow, Textid, TextStt, TextTime, TextTotal } = styles;
+    const { arrOrder } = this.state;
+    console.log('arrorder : ', arrOrder);
     return (
       <View style={container}>
         <View style={header}>
@@ -23,42 +43,26 @@ export default class OrderHistory extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView style={wrapper}>
-          <TouchableOpacity style={containOrder}>
-            <View style={boxRow}>
-              <Text > Order id: </Text>
-              <Text style={Textid}> ORD1 </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> OrderTime: </Text>
-              <Text style={TextTime}> 2018-07-10 7:48:13 </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> Status: </Text>
-              <Text style={TextStt}> Pending </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> Total: </Text>
-              <Text style={TextTotal}> 800$ </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={containOrder}>
-            <View style={boxRow}>
-              <Text> Order id: </Text>
-              <Text style={Textid}> ORD1 </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> OrderTime: </Text>
-              <Text style={TextTime}> 2018-07-10 7:48:13 </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> Status: </Text>
-              <Text style={TextStt}> Pending </Text>
-            </View>
-            <View style={boxRow}>
-              <Text> Total: </Text>
-              <Text style={TextTotal}> 800$ </Text>
-            </View>
-          </TouchableOpacity>
+          {arrOrder.map(e => (
+            <TouchableOpacity style={containOrder} key={e.id}>
+              <View style={boxRow}>
+                <Text> Order id: </Text>
+                <Text style={Textid}> ORD{e.id} </Text>
+              </View>
+              <View style={boxRow}>
+                <Text> OrderTime: </Text>
+                <Text style={TextTime}> {e.date_order} </Text>
+              </View>
+              <View style={boxRow}>
+                <Text> Status: </Text>
+                <Text style={TextStt}> {e.status} </Text>
+              </View>
+              <View style={boxRow}>
+                <Text> Total: </Text>
+                <Text style={TextTotal}> {e.total}$ </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
     );
