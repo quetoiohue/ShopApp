@@ -36,9 +36,9 @@ class ListProduct extends Component {
         const { navigation } = this.props;
         navigation.goBack();
     }
-    gotoDetail(e ) {
+    gotoDetail(e) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail' , {product: e});
+        navigation.navigate('ProductDetail', { product: e });
     }
     render() {
         const { container, Icback, TextHeader, wrapper,
@@ -59,8 +59,9 @@ class ListProduct extends Component {
                         dataSource={this.state.listProduct}
                         renderRow={product => (
                             <TouchableOpacity 
-                            onPress = {() => this.gotoDetail(product)}
-                             style={wrapper}>
+                            onPress={() => this.gotoDetail(product)}
+                             style={wrapper}
+                            >
                                 <Image source={{ uri: `${url}${product.images[0]}` }} style={ImaStyle} />
                                 <View style={containDetail}>
                                     <Text style={TextName}> {toTitleCase(product.name)} </Text>

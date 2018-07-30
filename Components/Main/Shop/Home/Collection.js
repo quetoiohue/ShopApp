@@ -12,9 +12,9 @@ class Collection extends Component {
         super(props);
         this.state = {};
     }
-    gotoProductDetail() {
+    gotoListProduct() {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ListProduct', { category: { name: 'SPRING COLLECTION', id: 'COLLECTION' } });
     }
     render() {
         const { wrapper, textStyle, imageStyle, BoxTitle } = styles;
@@ -27,7 +27,7 @@ class Collection extends Component {
                 </View>
                 <TouchableOpacity
                     style={{ flex: 4, justifyContent: 'flex-end' }}
-                    onPress={this.gotoProductDetail.bind(this)}
+                    onPress={this.gotoListProduct.bind(this)}
                 >
                     <Image source={banner} style={imageStyle} />
                 </TouchableOpacity>
