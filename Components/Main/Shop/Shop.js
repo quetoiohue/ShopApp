@@ -21,6 +21,7 @@ import global from '../../global';
 import initData from '../../api/initData';
 import getCart from '../../api/getCart';
 import saveCart from '../../api/saveCart';
+import Contact from './Contact/Contact';
 
 class Shop extends Component {
     constructor(props) {
@@ -136,7 +137,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'Contact' })}
                         selectedTitleStyle={{ color: 'orange', fontFamily: 'Avenir' }}
                     >
-                        <View style={{ flex: 1, backgroundColor: 'pink' }} />
+                        <Contact />
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
