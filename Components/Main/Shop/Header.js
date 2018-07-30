@@ -81,8 +81,10 @@ const styles = StyleSheet.create({
     TextIP: {
         height: height / 20,
         backgroundColor: '#FFF',
-        //paddingLeft: 10,
-        opacity: 0.9
+        padding: 0,
+        paddingLeft: 10,
+        opacity: 0.9,
+        justifyContent: 'center',
     }
 });
 export default Header;

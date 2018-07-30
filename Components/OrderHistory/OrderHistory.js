@@ -19,10 +19,9 @@ export default class OrderHistory extends Component {
     .then( token => JSON.parse(token))
     .then( token => getOrder(`${token}`))
       .then(arrOrder => {
-        console.log('arrGet: ' + arrOrder);
         this.setState({ arrOrder });
       })
-      .catch(err => console.log('GetOrder: ', err));
+      .catch(err => console.log('Loi: ', err));
   }
   gotoBackMain() {
     const { navigation } = this.props;
@@ -32,7 +31,6 @@ export default class OrderHistory extends Component {
     const { container, header, TextHeadStyle, Icstyle, containOrder, wrapper,
       boxRow, Textid, TextStt, TextTime, TextTotal } = styles;
     const { arrOrder } = this.state;
-    console.log('arrorder : ', arrOrder);
     return (
       <View style={container}>
         <View style={header}>

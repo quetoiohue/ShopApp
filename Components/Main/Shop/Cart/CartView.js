@@ -4,6 +4,8 @@ import {
     Dimensions, ListView
 } from 'react-native';
 import global from '../../../global';
+import getToken from '../../../api/getToken';
+import sendOrder from '../../../api/sendOrder';
 
 const url = 'http://192.168.1.8:8888/app/images/product/';
 function toTitleCase(str) {
@@ -16,9 +18,19 @@ class CartView extends Component {
         this.state = {
         };
     }
-    gotoDetail() {
+    async OnSendOrder() {
+        try {
+             const token1 = await getToken();
+             const token = JSON.parse(token1);
+            const arrayDetail = this.props.screenProps.map( e => ({id: e.product.id, quantity: e.quantity }));
+            const kq = sendOrder(arrayDetail, token);
+        } catch (error) {
+            console.log('LOI : ' , error);
+        }
+    }
+    gotoDetail(product) {
         const { navigation } = this.props;
-        navigation.navigate('ProductDetail');
+        navigation.navigate('ProductDetail', { product });
     }
     incrQuantity(id) {
         global.incrQuantity(id);
@@ -67,7 +79,7 @@ class CartView extends Component {
                                             <Text style={AddText}> - </Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.gotoDetail(cartItem.product)}>
                                         <Text style={textDetail}> SHOW DETAILS </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -75,7 +87,9 @@ class CartView extends Component {
                         </View>
                     )}
                 />
-                <TouchableOpacity style={checkoutButton} >
+                <TouchableOpacity 
+                onPress = {this.OnSendOrder.bind(this)}
+                style={checkoutButton} >
                     <Text style={checkoutTitle}>TOTAL {Total}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>
             </View>

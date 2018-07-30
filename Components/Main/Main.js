@@ -6,6 +6,7 @@ import checkLogin from '../api/checkLogin';
 import getToken from '../api/getToken';
 import global from '../global';
 
+
 export default class Main extends Component {
 
   componentDidMount() {
